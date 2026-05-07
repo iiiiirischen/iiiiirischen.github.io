@@ -1,0 +1,55 @@
+Iris (Yirong) Chen
+Boston, MA 02130 | iiiiiris52799@outlook.com
+PROFESSIONAL SUMMARY
+MS candidate in Epidemiology at Harvard T.H. Chan School of Public Health seeking a 2026 Summer Internship in epidemiology, statistical
+genetics, or computational biology. My work centers on genetic epidemiology and multi-omics research, with a focus on understanding disease
+mechanisms through large-scale population data. I bring interdisciplinary training in biochemistry and quantitative methods, allowing me to bridge
+experimental biology with rigorous statistical analysis.
+EDUCATION
+Harvard T.H. Chan School of Public Health Boston, MA
+Master of Science | Genetic Epidemiology and Statistical Genetics | GPA: 4.0/4.0 09/2025 – 05/2027 (Expected)
+• Relevant Coursework: Applied Regression Analysis, Study Design in Epidemiologic Research, Research Synthesis & Meta-Analysis,
+Epidemiologic Methods in Health Services Research, Analysis of Genetic Association Studies, Cancer Prevention
+University of Wisconsin – Madison Madison, WI
+Bachelor of Science | Biochemistry | Psychology | GPA: 4.0/4.0 | Dean’s List 09/2021 – 05/2025
+• Relevant Coursework: Biochemical Methods, Fundamentals of Analytical Science, Nutritional Biochemistry and Metabolism
+SKILLS
+• Statistical Genetics & Epidemiology: Genome-wide association studies (GWAS), GWAS Meta-Analysis, QTL Mapping, Mendelian
+Randomization, Multi-Omics Analysis, Risk Prediction Modeling, Causal Inference
+• Programming & Computational Tools: R, Stata, Python, Unix/Linux, Conda Environment, REGENIE, METAL, Bash Scripting
+• Molecular & Quantitative Methods: SDS-PAGE, High-Performance Liquid Chromatography (HPLC), PCR, UV-Vis spectroscopy,
+Forster Resonance Energy Transfer (FRET), Protein Purification, Data Visualization, PyMOL, GraphPad Prism, Microsoft Office (Word,
+Excel, PowerPoint, Outlook)
+RESEARCH EXPERIENCE
+Computational Genomics | Graduate Research Assistant | Liang Lab | Harvard T.H. Chan School of Public Health 10/2025 – Present
+• Analyzed multi-omics datasets spanning 5+ cardiometabolic and respiratory traits, applying statistical modeling with R to elucidate disease
+mechanisms and build risk prediction models with direct translational relevance
+• Executed GWAS pipelines using REGENIE on HPC systems across 3+ phenotypes, enabling reproducible large-scale genotype–phenotype
+analyses that feed directly into the lab’s disease mechanism research
+• Integrated QTL mapping and Mendelian Randomization (MR) to link genetic variants to molecular traits (gene expression, methylation,
+metabolomics) across 2+ omics layers, strengthening causal inference for disease pathways
+Epigenetic Epidemiology | Graduate Research Assistant | De Vivo Lab | Harvard T.H. Chan School of Public Health 03/2026 – Present
+• Conducted literature reviews on epigenetic mechanisms and aging biomarkers, synthesizing findings from primary sources to support
+ongoing research and grant development
+• Supported preparation of graduate-level epigenetics lecture content, integrating primary literature on telomere biology, DNA methylation,
+and aging into structured outlines and visual summaries
+• Contributed to grant proposal writing, translating scientific evidence into compelling narratives aligned with funding priorities and research
+objectives
+Protein Biochemistry | Undergraduate Student Researcher | Gisriel Lab | University of Wisconsin – Madison 08/2024 – 02/2025
+• Executed SDS-PAGE, HPLC, and UV-Vis spectroscopy experiments to characterize photosynthetic protein complexes, delivering analysis-
+ready datasets to a postdoc and PI for downstream structural and functional interpretation
+• Optimized cyanobacteria culture conditions, reducing failed experimental runs by ~25% and saving an estimated 20–30% of lab time,
+accelerating the team’s data collection timeline
+• Presented experimental findings at 5+ lab meetings and departmental sessions to audiences of 50+ faculty and researchers, communicating
+complex biochemical results to inform collaborative project decisions
+PROJECT EXPERIENCE
+Reticular Pseudodrusen (RPD) and AMD Risk: Multi-Cohort OCT – Metabolomics Integration and Analysis 02/2026 – Present
+• Built an R pipeline merging longitudinal OCT imaging with baseline metabolomics (844 samples × 632 Metabolon metabolites) across the
+Boston (MEEI) and Portugal cohorts, harmonizing unit, naming, and REDCap export inconsistencies into a unified analysis-ready dataset
+• Designed a per-variable missingness audit that traces every NA to its raw source, recovering patient-level covariates via within-patient
+carry-forward and multi-source coalescing to eliminate artefactual missingness
+• Executing regression models across three RPD outcomes and metabolome-wide association scans to identify metabolite signatures of RPD
+burden, with cross-cohort replication between MEEI and Portugal
+
+-- 1 of 1 --
+
