@@ -224,7 +224,7 @@ function Kinetic() {
             fontSize: 'clamp(56px, 8.5vw, 120px)', lineHeight: .95, letterSpacing: -2.5,
             margin: '0 0 24px', maxWidth: 1000,
           }} data-kn-reveal>
-            Iris (Yirong) Chen
+            Iris(Yirong) Chen
           </h1>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 24, marginBottom: 36 }} data-kn-reveal>
