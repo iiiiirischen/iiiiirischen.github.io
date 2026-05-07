@@ -282,7 +282,7 @@ function IntroPage() {
 
           {/* Title — transparent, sits above bubbles */}
           <div className="id-btitle" style={{
-            position:'absolute', top:'50%', left:0, right:0, transform:'translateY(-50%)',
+            position:'absolute', top:'40%', left:0, right:0, transform:'translateY(-50%)',
             textAlign:'center', padding:'0 24px',
             zIndex:10, pointerEvents:'none',
           }}>
