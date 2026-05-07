@@ -21,7 +21,7 @@ const DANCE_IMAGES = [
 
 // ── Chibi character ───────────────────────────────────────────────────────────
 // ↓ SWAP IMAGE: change this path to use a different character asset.
-const CHIBI_SRC = "iris-graduation.png";
+const CHIBI_SRC = "iris-graduation-image.png";
 
 // Pops up above the UW card edge, lower half hidden behind the card.
 // Must be a sibling BEFORE the card (card z-index:1, this z-index:0).
@@ -50,6 +50,7 @@ function ChibiCharacter({ visible, onMouseEnter, onMouseLeave }) {
         alt="Chibi graduation Iris waving hello"
         style={{
           width: '100%', height: 'auto', display: 'block',
+          mixBlendMode: 'multiply',
           animation: visible ? 'kn-chibi-bob 2.8s ease-in-out infinite' : 'none',
         }}
       />
