@@ -19,6 +19,49 @@ const DANCE_IMAGES = [
   { src: "dance/img_4394.jpg", alt: "Iris dancing on stage at the 2023 Dancas Showcase" },
 ];
 
+// ── Chibi character ───────────────────────────────────────────────────────────
+// ↓ SWAP IMAGE: change this path to use a different character asset.
+const CHIBI_SRC = "Iris Graduation.png";
+
+// Pops up above whatever card it lives inside (card needs position:relative).
+function ChibiCharacter({ visible }) {
+  return (
+    // ── CHIBI POSITION ────────────────────────────────────────────────────────
+    // bottom:'100%' places her just above the card top edge.
+    // Adjust `right` and `width` to reposition / resize.
+    <div style={{
+      position:      'absolute',
+      bottom:        '100%',
+      right:         20,
+      marginBottom:  -10,      // overlap the card's top edge slightly
+      width:         140,
+      pointerEvents: 'none',
+      zIndex:        5,
+      // ── ANIMATION STYLES ──────────────────────────────────────────────────
+      // Pop-in: spring cubic-bezier for the bouncy entrance.
+      // Pop-out: quick ease-in so she slips away cleanly.
+      // Change these values to tune the feel.
+      transition: visible
+        ? 'transform .52s cubic-bezier(.34,1.56,.64,1), opacity .3s ease'
+        : 'transform .28s cubic-bezier(.4,0,.6,1),      opacity .22s ease',
+      transform: visible ? 'translateY(0)   scale(1)'    : 'translateY(38px) scale(0.72)',
+      opacity:   visible ? 1 : 0,
+    }}>
+      <img
+        src={CHIBI_SRC}
+        alt="Chibi graduation Iris waving hello"
+        style={{
+          width: '100%', height: 'auto', display: 'block',
+          // ── BOB ANIMATION while visible ───────────────────────────────────
+          // Defined as @keyframes kn-chibi-bob in the Kinetic <style> block.
+          animation: visible ? 'kn-chibi-bob 2.8s ease-in-out infinite' : 'none',
+        }}
+      />
+    </div>
+  );
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 function CopyButton({ text, accent }) {
   const [copied, setCopied] = React.useState(false);
   const copy = () => {
@@ -95,6 +138,13 @@ function Kinetic() {
   const ink = "#241638";       // deep aubergine
   const cream = "#fbf2f7";     // soft pink-tinted cream
 
+  // ── Chibi hover state ─────────────────────────────────────────────────────
+  // true  = character visible above UW-Madison card
+  // false = character hidden (default)
+  const [chibVisible, setChibVisible] = React.useState(false);
+  // Auto-hide timer ref — used by the mobile tap handler
+  const chibTimerRef = React.useRef(null);
+
   // Subtle parallax / reveal on scroll without external libs.
   React.useEffect(() => {
     const els = document.querySelectorAll('[data-kn-reveal]');
@@ -143,6 +193,8 @@ function Kinetic() {
         .kn-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(20,10,35,.55);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px);font-size:18px;z-index:2;transition:background .2s,border-color .2s;line-height:1}
         .kn-arrow:hover{background:${accent};border-color:${accent}}
         .kn-dot{width:8px;height:8px;border-radius:50%;border:none;cursor:pointer;padding:0;transition:background .3s,transform .3s}
+        /* ── Chibi bob animation (used by ChibiCharacter while visible) ─── */
+        @keyframes kn-chibi-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
       `}</style>
 
       {/* nav */}
@@ -238,10 +290,34 @@ function Kinetic() {
           </h2>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-          {D3.education.map((e, i) => (
-            <div key={i} className="kn-card" data-kn-reveal style={{
-              padding: 32, background: '#fff', borderRadius: 12, border: '1px solid rgba(21,20,15,.08)',
-            }}>
+          {D3.education.map((e, i) => {
+            // ── CHIBI TRIGGER: only the UW-Madison card (index 1) ─────────────
+            const isUW = i === 1;
+
+            // Desktop: show on mouse-enter, hide on mouse-leave
+            const onMouseEnter = isUW ? () => setChibVisible(true)  : undefined;
+            const onMouseLeave = isUW ? () => setChibVisible(false) : undefined;
+
+            // Mobile: tap shows chibi; auto-hides after 2.5 s
+            const onTouchStart = isUW ? () => {
+              clearTimeout(chibTimerRef.current);
+              setChibVisible(true);
+              chibTimerRef.current = setTimeout(() => setChibVisible(false), 2500);
+            } : undefined;
+
+            return (
+            <div key={i} className="kn-card" data-kn-reveal
+              style={{
+                padding: 32, background: '#fff', borderRadius: 12,
+                border: '1px solid rgba(21,20,15,.08)',
+                position: 'relative', // required for chibi absolute positioning
+              }}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+              onTouchStart={onTouchStart}
+            >
+              {/* ── CHIBI CHARACTER (UW-Madison card only) ──────────────────── */}
+              {isUW && <ChibiCharacter visible={chibVisible} />}
               <div style={{ marginBottom: 12 }}>
                 <div style={{ fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: accent, fontWeight: 600 }}>
                   {e.dates}
@@ -289,7 +365,8 @@ function Kinetic() {
                 </ul>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
