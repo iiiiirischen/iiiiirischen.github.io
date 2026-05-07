@@ -34,7 +34,7 @@ function ChibiCharacter({ visible, onMouseEnter, onMouseLeave }) {
         position:      'absolute',
         bottom:        '100%',
         right:         20,
-        marginBottom:  -110,    // 110px hidden behind card top
+        marginBottom:  -60,     // 60px hidden behind card top
         width:         240,
         pointerEvents: visible ? 'auto' : 'none',
         zIndex:        0,       // behind card (card is z-index:1)
