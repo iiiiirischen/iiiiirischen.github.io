@@ -21,7 +21,7 @@ const DANCE_IMAGES = [
 
 // ── Chibi character ───────────────────────────────────────────────────────────
 // ↓ SWAP IMAGE: change this path to use a different character asset.
-const CHIBI_SRC = "Iris Graduation.png";
+const CHIBI_SRC = "iris-graduation.png";
 
 // Pops up above whatever card it lives inside (card needs position:relative).
 function ChibiCharacter({ visible }) {
