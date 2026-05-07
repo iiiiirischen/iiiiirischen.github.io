@@ -209,7 +209,7 @@ function Kinetic() {
           <a href="#education" style={{ color: 'inherit', textDecoration: 'none' }}>Education</a>
           <a href="#work" style={{ color: 'inherit', textDecoration: 'none' }}>Research</a>
           <a href="#projects" style={{ color: 'inherit', textDecoration: 'none' }}>Projects</a>
-          <a href="#dance" style={{ color: 'inherit', textDecoration: 'none' }}>Off-stage</a>
+          <a href="#dance" style={{ color: 'inherit', textDecoration: 'none' }}>Off-Stage</a>
           <a href="#contact" style={{ color: 'inherit', textDecoration: 'none' }}>Contact</a>
         </div>
       </nav>
