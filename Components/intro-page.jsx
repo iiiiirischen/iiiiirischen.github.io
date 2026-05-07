@@ -15,7 +15,7 @@ const BUBBLES = [
 const BUBBLE_COLOR = "#a78bda";
 // ════════════════════════════════════════════════════════════════════════════
 
-const BUBBLE_SIZES = [210, 196, 174, 160, 185, 165, 152];
+const BUBBLE_SIZES = [270, 252, 228, 212, 242, 220, 205];
 
 function IntroPage() {
   const accent  = "#7a3fb8";
@@ -42,8 +42,8 @@ function IntroPage() {
       return {
         x:     r + Math.random() * (W - size),
         y:     r + Math.random() * (H - size),
-        vx:    (Math.random() - .5) * 1.6,
-        vy:    (Math.random() - .5) * 1.6,
+        vx:    (Math.random() - .5) * 0.6,
+        vy:    (Math.random() - .5) * 0.6,
         size, r,
         color:      BUBBLE_COLOR,
         href:       b.href,
@@ -71,41 +71,41 @@ function IntroPage() {
         const dx = b.x - mx;
         const dy = b.y - my;
         const d2 = dx * dx + dy * dy;
-        const pr = b.r * 1.7;
+        const pr = b.r * 1.5;
         if (d2 < pr * pr && d2 > 1) {
           const d = Math.sqrt(d2);
-          const f = ((pr - d) / pr) * 11;
+          const f = ((pr - d) / pr) * 5;
           b.vx += (dx / d) * f;
           b.vy += (dy / d) * f;
         }
 
-        // Gentle random drift
-        b.vx += (Math.random() - .5) * .055;
-        b.vy += (Math.random() - .5) * .055;
+        // Very gentle random drift
+        b.vx += (Math.random() - .5) * .022;
+        b.vy += (Math.random() - .5) * .022;
 
-        // Soft-boundary nudge (keeps bubbles away from edges)
+        // Soft-boundary nudge
         const mg = b.r + 30;
-        if (b.x < mg)     b.vx += .14;
-        if (b.x > W - mg) b.vx -= .14;
-        if (b.y < mg)     b.vy += .14;
-        if (b.y > H - mg) b.vy -= .14;
+        if (b.x < mg)     b.vx += .07;
+        if (b.x > W - mg) b.vx -= .07;
+        if (b.y < mg)     b.vy += .07;
+        if (b.y > H - mg) b.vy -= .07;
 
-        // Damping
-        b.vx *= .965;
-        b.vy *= .965;
+        // Stronger damping so bubbles slow to a crawl quickly
+        b.vx *= .975;
+        b.vy *= .975;
 
-        // Speed cap
+        // Lower speed cap — bubbles drift, not race
         const spd = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
-        if (spd > 8) { b.vx = b.vx / spd * 8; b.vy = b.vy / spd * 8; }
+        if (spd > 3.5) { b.vx = b.vx / spd * 3.5; b.vy = b.vy / spd * 3.5; }
 
         b.x += b.vx;
         b.y += b.vy;
 
         // Hard-boundary bounce
-        if (b.x - b.r < 0)   { b.x = b.r;     b.vx =  Math.abs(b.vx) * .62; }
-        if (b.x + b.r > W)   { b.x = W - b.r; b.vx = -Math.abs(b.vx) * .62; }
-        if (b.y - b.r < 0)   { b.y = b.r;     b.vy =  Math.abs(b.vy) * .62; }
-        if (b.y + b.r > H)   { b.y = H - b.r; b.vy = -Math.abs(b.vy) * .62; }
+        if (b.x - b.r < 0)   { b.x = b.r;     b.vx =  Math.abs(b.vx) * .45; }
+        if (b.x + b.r > W)   { b.x = W - b.r; b.vx = -Math.abs(b.vx) * .45; }
+        if (b.y - b.r < 0)   { b.y = b.r;     b.vy =  Math.abs(b.vy) * .45; }
+        if (b.y + b.r > H)   { b.y = H - b.r; b.vy = -Math.abs(b.vy) * .45; }
 
         // Direct DOM update — no React re-render
         const el = elRefs.current[i];
