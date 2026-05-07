@@ -50,10 +50,10 @@ function ProjectsPage() {
           <span className="pp-display" style={{ fontSize:19 }}>Iris Chen</span>
         </div>
         <div style={{ display:'flex',gap:28,fontSize:13,color:'rgba(21,20,15,.65)' }}>
-          <a href="index.html#about"     style={{ color:'inherit',textDecoration:'none' }}>About</a>
-          <a href="index.html#education" style={{ color:'inherit',textDecoration:'none' }}>Education</a>
-          <a href="index.html#work"      style={{ color:'inherit',textDecoration:'none' }}>Research</a>
-          <a href="index.html#contact"   style={{ color:'inherit',textDecoration:'none' }}>Contact</a>
+          <a href="main.html#about"     style={{ color:'inherit',textDecoration:'none' }}>About</a>
+          <a href="main.html#education" style={{ color:'inherit',textDecoration:'none' }}>Education</a>
+          <a href="main.html#work"      style={{ color:'inherit',textDecoration:'none' }}>Research</a>
+          <a href="main.html#contact"   style={{ color:'inherit',textDecoration:'none' }}>Contact</a>
         </div>
       </nav>
 

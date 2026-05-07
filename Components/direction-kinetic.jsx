@@ -154,7 +154,7 @@ function Kinetic() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ width: 8, height: 8, borderRadius: 4, background: accent }} className="kn-pulse" />
-          <span className="kn-display" style={{ fontSize: 19 }}>Iris Chen</span>
+          <a href="index.html" className="kn-display" style={{ fontSize: 19, color: 'inherit', textDecoration: 'none' }}>Iris Chen</a>
         </div>
         <div style={{ display: 'flex', gap: 28, fontSize: 13, color: 'rgba(21,20,15,.7)' }}>
           <a href="#about" style={{ color: 'inherit', textDecoration: 'none' }}>About</a>
