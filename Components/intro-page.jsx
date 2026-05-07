@@ -65,8 +65,12 @@ function IntroPage() {
       const H  = window.innerHeight;
       const mx = cursor.current.x;
       const my = cursor.current.y;
+      const bs = phys.current;
 
-      phys.current.forEach((b, i) => {
+      // ── Phase 1: individual forces + integrate ──────────────────────────
+      for (let i = 0; i < bs.length; i++) {
+        const b = bs[i];
+
         // Cursor repulsion
         const dx = b.x - mx;
         const dy = b.y - my;
@@ -90,27 +94,54 @@ function IntroPage() {
         if (b.y < mg)     b.vy += .04;
         if (b.y > H - mg) b.vy -= .04;
 
-        // Heavy damping — bubbles bleed speed fast
+        // Heavy damping
         b.vx *= .984;
         b.vy *= .984;
 
-        // Very low speed cap
+        // Speed cap
         const spd = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
         if (spd > 1.8) { b.vx = b.vx / spd * 1.8; b.vy = b.vy / spd * 1.8; }
 
         b.x += b.vx;
         b.y += b.vy;
 
-        // Hard-boundary bounce
+        // Wall bounce
         if (b.x - b.r < 0)   { b.x = b.r;     b.vx =  Math.abs(b.vx) * .3; }
         if (b.x + b.r > W)   { b.x = W - b.r; b.vx = -Math.abs(b.vx) * .3; }
         if (b.y - b.r < 0)   { b.y = b.r;     b.vy =  Math.abs(b.vy) * .3; }
         if (b.y + b.r > H)   { b.y = H - b.r; b.vy = -Math.abs(b.vy) * .3; }
+      }
 
-        // Direct DOM update — no React re-render
+      // ── Phase 2: bubble-bubble collision ───────────────────────────────
+      // Allow a small natural overlap (~12px) before separating
+      for (let i = 0; i < bs.length; i++) {
+        for (let j = i + 1; j < bs.length; j++) {
+          const a = bs[i], b = bs[j];
+          const cx = a.x - b.x, cy = a.y - b.y;
+          const dist2 = cx * cx + cy * cy;
+          const minD  = a.r + b.r - 12;        // 12px natural overlap allowed
+          if (dist2 < minD * minD && dist2 > 0.01) {
+            const dist    = Math.sqrt(dist2);
+            const overlap = minD - dist;
+            const nx = cx / dist, ny = cy / dist;
+            // Gentle velocity push so they drift apart
+            const push = overlap * 0.04;
+            a.vx += nx * push;  a.vy += ny * push;
+            b.vx -= nx * push;  b.vy -= ny * push;
+            // Position correction — prevents deep stacking
+            const corr = overlap * 0.4;
+            a.x += nx * corr * 0.5;  a.y += ny * corr * 0.5;
+            b.x -= nx * corr * 0.5;  b.y -= ny * corr * 0.5;
+          }
+        }
+      }
+
+      // ── Phase 3: write to DOM ───────────────────────────────────────────
+      for (let i = 0; i < bs.length; i++) {
         const el = elRefs.current[i];
+        const b  = bs[i];
         if (el) el.style.transform = `translate(${b.x - b.r}px,${b.y - b.r}px)`;
-      });
+      }
 
       rafRef.current = requestAnimationFrame(tick);
     };
