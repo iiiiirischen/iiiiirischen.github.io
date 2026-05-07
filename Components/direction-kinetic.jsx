@@ -34,8 +34,8 @@ function ChibiCharacter({ visible, onMouseEnter, onMouseLeave }) {
         position:      'absolute',
         bottom:        '100%',
         right:         20,
-        marginBottom:  -95,     // 95px hidden behind card top
-        width:         190,
+        marginBottom:  -110,    // 110px hidden behind card top
+        width:         240,
         pointerEvents: visible ? 'auto' : 'none',
         zIndex:        0,       // behind card (card is z-index:1)
         transition: visible
@@ -50,7 +50,6 @@ function ChibiCharacter({ visible, onMouseEnter, onMouseLeave }) {
         alt="Chibi graduation Iris waving hello"
         style={{
           width: '100%', height: 'auto', display: 'block',
-          mixBlendMode: 'multiply',
           animation: visible ? 'kn-chibi-bob 2.8s ease-in-out infinite' : 'none',
         }}
       />
