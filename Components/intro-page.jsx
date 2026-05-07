@@ -150,6 +150,14 @@ function IntroPage() {
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
   }, [phase]);
 
+  // When the browser restores this page from the back-forward cache,
+  // reset the popping state so all bubbles are visible and clickable again.
+  React.useEffect(() => {
+    const onPageShow = (e) => { if (e.persisted) setPopping(null); };
+    window.addEventListener('pageshow', onPageShow);
+    return () => window.removeEventListener('pageshow', onPageShow);
+  }, []);
+
   const onMouseMove = React.useCallback(e => {
     cursor.current = { x: e.clientX, y: e.clientY };
   }, []);
