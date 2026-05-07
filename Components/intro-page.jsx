@@ -11,15 +11,8 @@ const BUBBLES = [
   { label: "Placeholder 5", href: null            },
 ];
 
-const BUBBLE_COLORS = [
-  "#7a3fb8", // purple
-  "#e85a9b", // pink
-  "#5b8fd4", // blue
-  "#4cb5a5", // teal
-  "#e07850", // orange
-  "#b55ab8", // magenta
-  "#8fa830", // olive
-];
+// Single color for all bubbles — change this one value to retheme everything
+const BUBBLE_COLOR = "#a78bda";
 // ════════════════════════════════════════════════════════════════════════════
 
 const BUBBLE_SIZES = [210, 196, 174, 160, 185, 165, 152];
@@ -52,7 +45,7 @@ function IntroPage() {
         vx:    (Math.random() - .5) * 1.6,
         vy:    (Math.random() - .5) * 1.6,
         size, r,
-        color:      BUBBLE_COLORS[i % BUBBLE_COLORS.length],
+        color:      BUBBLE_COLOR,
         href:       b.href,
         label:      b.label,
         ph:         !b.href,
@@ -174,7 +167,7 @@ function IntroPage() {
       <style>{`
         .id-disp   { font-family:"DM Serif Display","Fraunces",Georgia,serif; font-weight:400; letter-spacing:-.02em }
         .id-grad   { background:linear-gradient(120deg,${accent} 0%,${accent2} 100%);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block }
-        .id-bubtxt { font-family:'Playfair Display',Georgia,serif; font-weight:700; letter-spacing:.015em; line-height:1.18 }
+        .id-bubtxt { font-family:'Cormorant Garamond',Georgia,serif; font-weight:600; font-style:italic; letter-spacing:.02em; line-height:1.18 }
 
         /* Hello */
         .id-hello-wrap { animation:id-in .9s cubic-bezier(.2,.8,.3,1) both }
@@ -208,12 +201,12 @@ function IntroPage() {
         /* Hover — brighter rim glow (physics handles the movement) */
         .id-bub:hover .id-bshell {
           box-shadow:
-            0 0 0 2px rgba(255,255,255,.82),
-            inset 0 0 0 2px rgba(255,255,255,.72),
-            inset 0 6px 22px rgba(255,255,255,.54),
-            inset 0 -8px 18px rgba(122,63,184,.24),
-            0 0 44px rgba(122,63,184,.24) !important;
-          backdrop-filter: blur(8px) saturate(2) brightness(1.1) !important;
+            0 0 0 2px rgba(255,255,255,.85),
+            inset 0 0 0 2px rgba(255,255,255,.75),
+            inset 0 6px 22px rgba(255,255,255,.56),
+            inset 0 -8px 18px rgba(167,139,218,.2),
+            0 0 44px rgba(167,139,218,.22) !important;
+          backdrop-filter: blur(5px) saturate(1.6) brightness(1.08) !important;
         }
 
         /* Background blobs */
@@ -256,26 +249,18 @@ function IntroPage() {
       {(phase === 'prompt' || phase === 'bubbles') && (
         <div style={{ position:'absolute', inset:0 }}>
 
-          {/* Title — frosted pill so it stays readable when bubbles drift under */}
+          {/* Title — transparent, sits above bubbles */}
           <div className="id-btitle" style={{
             position:'absolute', top:'28%', left:0, right:0,
             textAlign:'center', padding:'0 24px',
             zIndex:10, pointerEvents:'none',
           }}>
-            <div style={{
-              display:'inline-block',
-              background:'rgba(251,242,247,.62)',
-              backdropFilter:'blur(12px)',
-              borderRadius:24,
-              padding:'14px 40px',
+            <h2 className="id-disp id-prompt" style={{
+              fontSize:'clamp(24px,4.5vw,52px)', fontWeight:400, fontStyle:'italic',
+              color:ink, margin:0, lineHeight:1.25,
             }}>
-              <h2 className="id-disp id-prompt" style={{
-                fontSize:'clamp(24px,4.5vw,52px)', fontWeight:400, fontStyle:'italic',
-                color:ink, margin:0, lineHeight:1.25,
-              }}>
-                Want to know more about <span className="id-grad">Iris</span>?
-              </h2>
-            </div>
+              Want to know more about <span className="id-grad">Iris</span>?
+            </h2>
           </div>
 
           {/* Physics-driven bubbles */}
@@ -297,8 +282,8 @@ function IntroPage() {
                   pointerEvents: 'none',
                   /* Natural elliptical shadow below each bubble */
                   filter: [
-                    `drop-shadow(0 ${Math.round(b.r*.13)}px ${Math.round(b.r*.18)}px ${b.color}3e)`,
-                    `drop-shadow(0 ${Math.round(b.r*.04)}px ${Math.round(b.r*.08)}px rgba(0,0,0,.1))`,
+                    `drop-shadow(0 ${Math.round(b.r*.13)}px ${Math.round(b.r*.18)}px rgba(167,139,218,.28))`,
+                    `drop-shadow(0 ${Math.round(b.r*.04)}px ${Math.round(b.r*.08)}px rgba(0,0,0,.07))`,
                   ].join(' '),
                 }}
               >
@@ -330,39 +315,38 @@ function IntroPage() {
                        * 1. Primary specular arc     — bright crescent top-left
                        * 2. Secondary rim highlight  — top-right edge glow
                        * 3. Bottom reflection pool   — subtle gathered light
-                       * 4. Conic rainbow bands      — thin-film iridescence,
-                       *    offset per bubble (conicStart) so each looks distinct
+                       * 4. Very light conic tint    — barely-there iridescence
+                       *    (bubbles are mostly transparent — highlights do the work)
                        */
                       background: `
                         radial-gradient(ellipse 62% 33% at 30% 21%,
-                          rgba(255,255,255,.99) 0%,
-                          rgba(255,255,255,.74) 15%,
+                          rgba(255,255,255,.96) 0%,
+                          rgba(255,255,255,.62) 16%,
                           transparent 44%),
                         radial-gradient(ellipse 27% 23% at 76% 10%,
-                          rgba(255,255,255,.66) 0%,
+                          rgba(255,255,255,.58) 0%,
                           transparent 52%),
                         radial-gradient(ellipse 40% 21% at 55% 90%,
-                          rgba(255,255,255,.36) 0%,
+                          rgba(255,255,255,.28) 0%,
                           transparent 50%),
                         conic-gradient(from ${b.conicStart}deg at 50% 50%,
-                          ${b.color}46          0deg,
-                          rgba(232,90,155,.26)  54deg,
-                          rgba(91,143,212,.28)  108deg,
-                          rgba(76,181,165,.24)  162deg,
-                          rgba(230,120,80,.21)  216deg,
-                          rgba(180,90,184,.24)  270deg,
-                          rgba(91,143,212,.24)  324deg,
-                          ${b.color}46          360deg)
+                          rgba(167,139,218,.16) 0deg,
+                          rgba(232,200,255,.10) 60deg,
+                          rgba(180,220,255,.12) 120deg,
+                          rgba(200,240,230,.10) 180deg,
+                          rgba(255,200,230,.11) 240deg,
+                          rgba(220,180,255,.13) 300deg,
+                          rgba(167,139,218,.16) 360deg)
                       `,
                       /* Outer bright ring + inner glow = bubble rim */
                       boxShadow: `
-                        0 0 0 1.5px rgba(255,255,255,.68),
-                        inset 0 0 0 1.5px rgba(255,255,255,.58),
-                        inset 0 6px 22px rgba(255,255,255,.48),
-                        inset 0 -7px 16px ${b.color}34,
-                        inset ${Math.round(b.r*.2)}px ${Math.round(b.r*.13)}px ${Math.round(b.r*.3)}px rgba(255,255,255,.08)
+                        0 0 0 1px rgba(255,255,255,.62),
+                        inset 0 0 0 1px rgba(255,255,255,.50),
+                        inset 0 5px 20px rgba(255,255,255,.42),
+                        inset 0 -6px 14px rgba(167,139,218,.18),
+                        inset ${Math.round(b.r*.2)}px ${Math.round(b.r*.13)}px ${Math.round(b.r*.3)}px rgba(255,255,255,.07)
                       `,
-                      backdropFilter: 'blur(7px) saturate(1.8) brightness(1.05)',
+                      backdropFilter: 'blur(3px) saturate(1.3) brightness(1.03)',
                       transition: 'box-shadow .2s, backdrop-filter .2s',
                       animation:  `id-shimmer ${b.sDur}s linear ${b.sDel}s infinite`,
                     }}
@@ -379,8 +363,8 @@ function IntroPage() {
                       className="id-bubtxt"
                       style={{
                         fontSize:   Math.round(b.size * .155),
-                        color:      b.ph ? 'rgba(21,20,15,.3)' : b.color,
-                        textShadow: b.ph ? 'none' : `0 1px 12px ${b.color}55`,
+                        color:      b.ph ? 'rgba(167,139,218,.38)' : BUBBLE_COLOR,
+                        textShadow: b.ph ? 'none' : '0 1px 14px rgba(167,139,218,.55)',
                       }}
                     >
                       {b.label}
